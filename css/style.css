@@ -1,0 +1,7 @@
+.widget_darksky_widget {
+	text-align: center;
+}
+
+.widget_darksky_widget h2.dark-sky-temp {
+	font-size:4em;
+}
