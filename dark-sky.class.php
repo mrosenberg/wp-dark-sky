@@ -12,7 +12,7 @@
 
 class DarkSkies {
 
-	const API_KEY = '';
+	const API_KEY = '0ee3b4a4c6b52530fa0cb0cfa0bee9ea';
 
 	const TRANSIENT = 'darksky-forecast';
 

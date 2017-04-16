@@ -5,3 +5,9 @@
 .widget_darksky_widget h2.dark-sky-temp {
 	font-size:4em;
 }
+
+.widget_darksky_widget .dark-sky-metric {
+	display: block;
+	text-align: center;
+	margin: 0 auto;
+}

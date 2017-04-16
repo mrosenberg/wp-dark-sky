@@ -85,6 +85,7 @@ class DarkSky
      */
     private function makeAPIRequest($endpoint)
     {
+
         $url = self::BASE_URL . $endpoint;
 
         if ($this->options['suppress_errors']) {

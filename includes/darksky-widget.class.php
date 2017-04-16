@@ -22,7 +22,7 @@ class DarkSky_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		global $DarkSkies;
 
-		$forecast    = $DarkSkies->forecast($instance['lat'], $instance['long']);
+		$forecast    = $DarkSkies->forecast($instance['latitude'], $instance['longitude']);
 		$icon        = $forecast['currently']['icon'];
 		$temp        = $forecast['currently']['temperature'];
 		$windSpeed   = $forecast['currently']['windSpeed'];
@@ -36,12 +36,12 @@ class DarkSky_Widget extends WP_Widget {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];	
 		}	
 
-		// echo "<span class='dark-sky-metric dark-sky-temp'>{$temp}&#176;</span>";
-		// echo "<span class='dark-sky-metric dark-sky-windspeed'><span class=""{$windSpeed} <span class='dark-sky-suffix'>mph</span></span>";
-		// echo "<span class='dark-sky-metric dark-sky-windbearing'>{$windBearing}</span>";
-		// echo "<span class='dark-sky-metric dark-sky-visibility'>{$visibility}</span>";
-		// echo "<span class='dark-sky-metric dark-sky-pressure'>{$pressure}</span>";
-		// echo "<canvas class='dark-sky-metric dark-sky-icon' data-icon='{$icon}' width='128' height='128'></canvas>";
+		echo "<span class='dark-sky-metric dark-sky-temp'>Temp: {$temp}&#176;F</span>";
+		echo "<span class='dark-sky-metric dark-sky-windspeed'>Windspeed: {$windSpeed} <span class='dark-sky-suffix'>mph</span></span>";
+		echo "<span class='dark-sky-metric dark-sky-windbearing'>Direction: {$windBearing}&#176;</span>";
+		echo "<span class='dark-sky-metric dark-sky-visibility'>Visibility: {$visibility} mi</span>";
+		echo "<span class='dark-sky-metric dark-sky-pressure'>Pressure: {$pressure} mb</span>";
+		echo "<canvas class='dark-sky-metric dark-sky-icon' data-icon='{$icon}' width='128' height='128'></canvas>";
 
 		echo $args['after_widget'];
 	}
@@ -52,12 +52,26 @@ class DarkSky_Widget extends WP_Widget {
 	 * @param array $instance The widget options
 	 */
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
+		$title     = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
+		$latitude  = ! empty( $instance['latitude'] ) ? $instance['latitude'] : __( 'New latitude', 'text_domain' );
+		$longitude = ! empty( $instance['longitude'] ) ? $instance['longitude'] : __( 'New longitude', 'text_domain' );
+
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
+
+		<p>
+		<label for="<?php echo $this->get_field_id( 'latitude' ); ?>"><?php _e( 'Latitude:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'latitude' ); ?>" name="<?php echo $this->get_field_name( 'latitude' ); ?>" type="text" value="<?php echo esc_attr( $latitude ); ?>">
+		</p>
+
+		<p>
+		<label for="<?php echo $this->get_field_id( 'longitude' ); ?>"><?php _e( 'longitude:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'longitude' ); ?>" name="<?php echo $this->get_field_name( 'longitude' ); ?>" type="text" value="<?php echo esc_attr( $longitude ); ?>">
+		</p>		
+
 		<?php 
 	}
 
@@ -70,6 +84,8 @@ class DarkSky_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['latitude'] = ( ! empty( $new_instance['latitude'] ) ) ? strip_tags( $new_instance['latitude'] ) : '';
+		$instance['longitude'] = ( ! empty( $new_instance['longitude'] ) ) ? strip_tags( $new_instance['longitude'] ) : '';
 
 		return $instance;
 	}
